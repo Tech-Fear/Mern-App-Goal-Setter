@@ -19,6 +19,8 @@
     "nodemon": "^3.0.3"
   },
   "dependencies": {
-    "express-async-handler": "^1.2.0"
+    "bcryptjs": "^2.4.3",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }
