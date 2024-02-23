@@ -2,7 +2,7 @@ const mongoose=require('mongoose')
 const goalsSchema=mongoose.Schema(
     {
     user:{
-        types:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'User'
     },

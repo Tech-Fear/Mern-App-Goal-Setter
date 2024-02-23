@@ -26,7 +26,7 @@ const registerUser=asyncHandler(async(req,res)=>{
         password: hashedPassword,
     })
     if(user){
-        res.status(201).send({
+        res.status(201).json({
             _id:user.id,
             name: user.name,
             email: user.email,
@@ -36,7 +36,7 @@ const registerUser=asyncHandler(async(req,res)=>{
         res.status(400)
         throw new Error("Invalid User data")
     }
-    res.send({message:'Register User'})
+    res.json({message:'Register User'})
 })
 // @desc Login User/ Authinticate a user
 // @routes Post /api/users/login
@@ -45,7 +45,7 @@ const loginUser=asyncHandler(async(req,res)=>{
     const {email,password}=req.body
     const user=await User.findOne({email})
     if(user && (await bcrypt.compare(password,user.password))){
-        res.send({
+        res.json({
             _id:user.id,
             name: user.name,
             email: user.email,
@@ -56,13 +56,18 @@ const loginUser=asyncHandler(async(req,res)=>{
         throw new Error("Invalid login credentials")
     }
 
-    res.send({message: 'Login User'})
+    res.json({message: 'Login User'})
 })
 // @desc Get users Data 
 // @routes Post /api/users/me
 // @access Private
 const getMe=asyncHandler(async(req,res)=>{
-    res.send({message:'User data display'})
+    const { _id, name, email }=await User.findById(req.user.id)
+    res.json({
+        id:_id,
+        name,
+        email,
+    })
 })
 //Generate jsonwebtoken
 const generateToken=(id)=>{
